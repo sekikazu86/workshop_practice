@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boulangerie Soleil - 手作りパンの専門店</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* リセットCSS */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* 基本スタイル */
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      color: #3E2723;
+      line-height: 1.6;
+      background-color: #FFF8E1;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 700;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.2rem;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: #8B4513;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #8B4513;
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 30px;
+      font-weight: 500;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #6d3100;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 2px solid #8B4513;
+      color: #8B4513;
+    }
+
+    .btn-secondary:hover {
+      background-color: #8B4513;
+      color: #fff;
+    }
+
+    /* ヘッダー */
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+    }
+
+    .logo h1 {
+      font-size: 1.8rem;
+      color: #8B4513;
+      margin-bottom: 5px;
+    }
+
+    .logo p {
+      font-size: 0.9rem;
+      color: #6d3100;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 30px;
+    }
+
+    nav ul li a {
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #8B4513;
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    /* ヒーローセクション */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=1200&auto=format&fit=crop') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .hero h2 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* 私たちについて */
+    .about {
+      padding: 100px 0;
+      background-color: #fff;
+    }
+
+    .about-content {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .about-text {
+      flex: 1;
+    }
+
+    .about-text p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .about-image {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* メニュー */
+    .menu {
+      padding: 100px 0;
+      background-color: #FFF8E1;
+    }
+
+    .menu-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .menu-item {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .menu-item h3 {
+      padding: 15px 15px 5px;
+      font-size: 1.2rem;
+    }
+
+    .menu-item p {
+      padding: 0 15px 15px;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .price {
+      display: block;
+      padding: 0 15px 15px;
+      font-weight: 700;
+      color: #8B4513;
+      font-size: 1.1rem;
+    }
+
+    .menu-more {
+      text-align: center;
+    }
+
+    /* 特徴 */
+    .feature {
+      padding: 100px 0;
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?q=80&w=1200&auto=format&fit=crop') no-repeat center center;
+      background-size: cover;
+      background-attachment: fixed;
+      color: #fff;
+      text-align: center;
+    }
+
+    .feature-content {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .feature h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .feature p {
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* 店舗情報 */
+    .info {
+      padding: 100px 0;
+      background-color: #fff;
+    }
+
+    .info-content {
+      display: flex;
+      gap: 50px;
+    }
+
+    .info-details {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .info-item h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #8B4513;
+    }
+
+    .info-item p {
+      line-height: 1.8;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .info-map {
+      flex: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      height: 400px;
+    }
+
+    .info-map iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    /* Instagram */
+    .instagram {
+      padding: 100px 0;
+      background-color: #FFF8E1;
+    }
+
+    .instagram-intro {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .instagram-feed {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .instagram-item {
+      border-radius: 5px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .instagram-item:hover {
+      transform: scale(1.03);
+    }
+
+    .instagram-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .instagram-link {
+      text-align: center;
+    }
+
+    /* お問い合わせ */
+    .contact {
+      padding: 100px 0;
+      background-color: #fff;
+    }
+
+    .contact-form {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #8B4513;
+    }
+
+    .contact-form .btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 15px;
+    }
+
+    /* フッター */
+    footer {
+      background-color: #3E2723;
+      color: #fff;
+      padding: 70px 0 20px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-logo h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-links h4,
+    .footer-contact h4 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links h4::after,
+    .footer-contact h4::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: #F5DEB3;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links ul li a:hover {
+      color: #F5DEB3;
+    }
+
+    .footer-contact p {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+    }
+
+    /* レスポンシブデザイン */
+    @media (max-width: 992px) {
+      .about-content,
+      .info-content {
+        flex-direction: column;
+      }
+      
+      .hero h2 {
+        font-size: 2.8rem;
+      }
+
+      .info-map {
+        height: 300px;
+        margin-top: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header .container {
+        flex-direction: column;
+      }
+      
+      nav ul {
+        margin-top: 15px;
+      }
+      
+      nav ul li {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+      
+      .hero {
+        height: 80vh;
+      }
+      
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+      
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .feature h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      nav ul li {
+        margin: 5px 10px;
+      }
+      
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .info-details {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <h1>Boulangerie Soleil</h1>
+        <p>手作りパンの専門店</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#about">私たちについて</a></li>
+          <li><a href="#menu">メニュー</a></li>
+          <li><a href="#info">店舗情報</a></li>
+          <li><a href="#contact">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>毎日焼きたて、<br>心を込めたパンをあなたに</h2>
+      <p>厳選した素材と伝統的な製法で作る、本格的なパンをご提供します</p>
+      <a href="#menu" class="btn">メニューを見る</a>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">私たちについて</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>Boulangerie Soleilは、2010年に創業した手作りパンの専門店です。フランスで修業したパン職人が、毎日朝早くから心を込めてパンを焼き上げています。</p>
+          <p>国産小麦と天然酵母にこだわり、添加物を極力使わない体に優しいパン作りを心がけています。季節の素材を取り入れた限定商品も人気です。</p>
+        </div>
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1591986947865-a3069c6abe6b?q=80&w=800&auto=format&fit=crop" alt="パン職人">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="menu">
+    <div class="container">
+      <h2 class="section-title">人気メニュー</h2>
+      <div class="menu-items">
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?q=80&w=600&auto=format&fit=crop" alt="バゲット">
+          <h3>伝統的なバゲット</h3>
+          <p>外はパリッと、中はもっちりとした食感の本格フランスパン</p>
+          <span class="price">¥320</span>
+        </div>
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" alt="クロワッサン">
+          <h3>発酵バタークロワッサン</h3>
+          <p>何層にも折り重ねた生地と発酵バターの香り豊かな一品</p>
+          <span class="price">¥280</span>
+        </div>
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1586444248879-bc604bc77a5b?q=80&w=600&auto=format&fit=crop" alt="カンパーニュ">
+          <h3>自家製酵母カンパーニュ</h3>
+          <p>天然酵母の風味と小麦の香りが楽しめる田舎風パン</p>
+          <span class="price">¥450</span>
+        </div>
+        <div class="menu-item">
+          <img src="https://images.unsplash.com/photo-1623334044303-241021148842?q=80&w=600&auto=format&fit=crop" alt="パン・オ・ショコラ">
+          <h3>パン・オ・ショコラ</h3>
+          <p>高級チョコレートを包み込んだ、甘さ控えめの菓子パン</p>
+          <span class="price">¥320</span>
+        </div>
+      </div>
+      <div class="menu-more">
+        <a href="#" class="btn">メニューをもっと見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature">
+    <div class="container">
+      <div class="feature-content">
+        <h2>素材へのこだわり</h2>
+        <p>私たちは国産小麦と天然酵母を使用し、長時間発酵させることで、深い味わいと香りを引き出しています。添加物を極力使わず、素材本来の味を大切にしたパン作りを心がけています。</p>
+        <a href="#" class="btn btn-secondary">詳しく見る</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="info" class="info">
+    <div class="container">
+      <h2 class="section-title">店舗情報</h2>
+      <div class="info-content">
+        <div class="info-details">
+          <div class="info-item">
+            <h3>営業時間</h3>
+            <p>平日: 7:00 - 19:00<br>土日祝: 7:00 - 18:00</p>
+            <p class="note">※売り切れ次第終了となる場合があります</p>
+          </div>
+          <div class="info-item">
+            <h3>定休日</h3>
+            <p>毎週月曜日<br>（祝日の場合は営業、翌日休み）</p>
+          </div>
+          <div class="info-item">
+            <h3>アクセス</h3>
+            <p>〒123-4567<br>東京都〇〇区△△町1-2-3<br>〇〇駅から徒歩5分</p>
+          </div>
+        </div>
+        <div class="info-map">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.827853251896!2d139.69171531525394!3d35.68948098019441!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b563b00109f%3A0x337328def1e2ab26!2z5p2x5Lqs6aeF!5e0!3m2!1sja!2sjp!4v1635000000000!5m2!1sja!2sjp" 
+            width="100%" 
+            height="400" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="店舗所在地">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="instagram">
+    <div class="container">
+      <h2 class="section-title">Instagram</h2>
+      <p class="instagram-intro">日々の様子や新作パンの情報を発信しています</p>
+      <div class="instagram-feed">
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?q=80&w=600&auto=format&fit=crop" alt="Instagram写真1">
+        </div>
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1568254183919-78a4f43a2877?q=80&w=600&auto=format&fit=crop" alt="Instagram写真2">
+        </div>
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?q=80&w=600&auto=format&fit=crop" alt="Instagram写真3">
+        </div>
+        <div class="instagram-item">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=600&auto=format&fit=crop" alt="Instagram写真4">
+        </div>
+      </div>
+      <div class="instagram-link">
+        <a href="https://www.instagram.com/" target="_blank" class="btn btn-secondary">Instagramをフォロー</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">お問い合わせ</h2>
+      <form class="contact-form">
+        <div class="form-group">
+          <label for="name">お名前</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">メールアドレス</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">件名</label>
+          <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group">
+          <label for="message">メッセージ</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn">送信する</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <h3>Boulangerie Soleil</h3>
+          <p>手作りパンの専門店</p>
+        </div>
+        <div class="footer-links">
+          <h4>リンク</h4>
+          <ul>
+            <li><a href="#about">私たちについて</a></li>
+            <li><a href="#menu">メニュー</a></li>
+            <li><a href="#info">店舗情報</a></li>
+            <li><a href="#contact">お問い合わせ</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>お問い合わせ</h4>
+          <p>TEL: 03-1234-5678</p>
+          <p>MAIL: info@boulangerie-soleil.jp</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Boulangerie Soleil All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
